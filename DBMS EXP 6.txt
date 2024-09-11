@@ -6,3 +6,4 @@ SELECT * FROM employee WHERE super_ssn = (SELECT ssn FROM employee WHERE Fname =
 
 SELECT * FROM employee WHERE (SELECT COUNT(*) from project) = (SELECT COUNT(*) FROM works_on WHERE ssn = essn);
 
+SELECT * FROM employee WHERE 0 = (SELECT COUNT(*) FROM works_on WHERE ssn = essn);
