@@ -1,0 +1,90 @@
+CREATE TABLE SUPPLIER(
+scode VARCHAR(8),
+sname VARCHAR(20),
+scity VARCHAR(20),
+turnover DECIMAL(10,2),
+PRIMARY KEY(scode)
+);
+
+CREATE TABLE PART(
+pcode VARCHAR(8),
+weigh INT UNSIGNED,
+color VARCHAR(10),
+cost DECIMAL(10,2),
+sellingprice DECIMAL(10,2),
+PRIMARY KEY(pcode)
+);
+
+CREATE TABLE SUPPLIER_PART (
+scode VARCHAR(8),
+pcode VARCHAR(8),
+qty INT,
+CONSTRAINT FR_SCODE FOREIGN KEY (scode) REFERENCES SUPPLIER(scode),
+CONSTRAINT FR_PCODE FOREIGN KEY (pcode) REFERENCES PART(pcode)
+);
+
+INSERT INTO SUPPLIER (scode, sname, scity, turnover) VALUES
+('S001', 'Supplier A', 'New York', 100000),
+('S002', 'Supplier B', 'Los Angeles', 150000),
+('S003', 'Supplier C', 'Chicago', 200000),
+('S004', 'Supplier D', 'Houston', 250000),
+('S005', 'Supplier E', 'Bombay', 300000),
+('S006', 'Supplier F', 'Philadelphia', 350000),
+('S007', 'Supplier G', 'Patna', 400000),
+('S008', 'Supplier H', 'San Diego', 450000),
+('S009', 'Supplier I', 'Dallas', 500000),
+('S010', 'Supplier J', 'Bombay', 550000);
+
+INSERT INTO PART (pcode, weigh, color, cost, sellingprice) VALUES
+('P001', 100, 'Red', 500, 600),
+('P002', 200, 'Blue', 700, 850),
+('P003', 150, 'Green', 300, 400),
+('P004', 250, 'Yellow', 1000, 1200),
+('P005', 180, 'Black', 450, 550),
+('P006', 300, 'White', 800, 1000),
+('P007', 120, 'Orange', 350, 450),
+('P008', 220, 'Purple', 600, 750),
+('P009', 170, 'Pink', 500, 650),
+('P010', 200, 'Gray', 550, 700);
+
+INSERT INTO SUPPLIER_PART (scode, pcode, qty) VALUES
+('S001', 'P001', 50),
+('S002', 'P002', 40),
+('S003', 'P003', 60),
+('S004', 'P004', 30),
+('S005', 'P005', 20),
+('S006', 'P006', 70),
+('S007', 'P007', 80),
+('S008', 'P008', 25),
+('S009', 'P009', 55),
+('S010', 'P010', 35),
+('S001', 'P004', 50),
+('S002', 'P001', 40),
+('S003', 'P003', 60),
+('S004', 'P007', 30),
+('S005', 'P007', 20),
+('S006', 'P002', 70),
+('S007', 'P005', 80),
+('S008', 'P006', 25),
+('S009', 'P010', 55),
+('S010', 'P001', 35);
+
+SELECT supplier_part.scode, supplier_part.pcode from supplier_part ORDER BY supplier_part.scode;
+
+SELECT * from supplier where scity = 'Bombay' AND turnover = 300000;
+
+SELECT count(scode) from supplier;
+
+SELECT part.pcode from part WHERE weigh BETWEEN 100 AND 150;
+
+SELECT scode from supplier where turnover is NULL;
+
+SELECT PCODE FROM PART WHERE COST IN (200,300,500);
+
+SELECT SUM(qty) FROM supplier_part WHERE pcode = 'P002';
+
+SELECT sname FROM supplier WHERE scode IN (SELECT scode FROM supplier_part WHERE pcode = 'P002');
+
+SELECT pcode FROM part WHERE (cost > (SELECT AVG(cost) FROM part));
+
+SELECT scode, turnover FROM supplier ORDER BY turnover DESC;
