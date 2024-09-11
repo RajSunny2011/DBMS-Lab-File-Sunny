@@ -17,3 +17,6 @@ Q6
 SELECT * FROM employee WHERE 1 <= (SELECT COUNT(*) FROM works_on WHERE ssn = essn) AND address LIKE '%Houston%' AND 'Houston' NOT IN (SELECT dlocation FROM dept_locations where employee.dno = dept_locations.dnumber);
 
 SELECT * FROM employee WHERE 1 <= (SELECT COUNT(*) FROM works_on WHERE ssn = essn) AND address LIKE '%Houston%' AND Dno NOT IN (SELECT dnumber FROM dept_locations where Dlocation = 'Houston');
+
+Q7
+SELECT * FROM  employee WHERE 0 = (SELECT COUNT(*) FROM dependent where ssn = essn);
