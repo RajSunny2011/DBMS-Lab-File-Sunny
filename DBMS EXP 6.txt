@@ -1,0 +1,8 @@
+SELECT Fname, Lname FROM employee WHERE Dno = 5 AND 10<(SELECT hours FROM works_on WHERE ssn = essn AND pno = (SELECT pnumber FROM project WHERE pname = 'ProductX'));
+
+SELECT Fname, Lname FROM employee WHERE fname IN (SELECT Dependent_name from dependent where ssn = essn);
+
+SELECT * FROM employee WHERE super_ssn = (SELECT ssn FROM employee WHERE Fname = 'Franklin' AND Lname = 'Wong');
+
+SELECT * FROM employee WHERE (SELECT COUNT(*) from project) = (SELECT COUNT(*) FROM works_on WHERE ssn = essn);
+
