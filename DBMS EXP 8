@@ -1,0 +1,40 @@
+CREATE TABLE student(
+	sid CHAR(7) PRIMARY KEY,
+	sname VARCHAR(15),
+	age INT,
+);
+
+CREATE TABLE matches(
+    mid CHAR(7) PRIMARY KEY,
+    mname VARCHAR(10),
+    venue VARCHAR(10),
+);
+
+CREATE TABLE play(
+	sid CHAR(7),
+	mid CHAR(7),
+	day DATE,
+	CONSTRAINT FK_sid FOREIGN KEY (sid) REFERENCES student(sid),
+	CONSTRAINT FK_mid FOREIGN KEY (mid) REFERENCES matches(mid),
+	PRIMARY KEY(sid,mid)
+);
+
+INSERT INTO student (sid, sname, age) VALUES
+('S000001', 'Amit', 20),
+('S000002', 'Rajesh', 21),
+('S000003', 'Priya', 22);
+
+INSERT INTO matches (mid, mname, venue) VALUES
+('M000001', 'ODI Final', 'Narendra Modi'),
+('M000002', 'Ranji', 'Wankhede'),
+('M000003', 'Test', 'Chinnaswamy');
+
+INSERT INTO play (sid, mid, day) VALUES
+('S000001', 'M000001', '2023-11-19'),
+('S000002', 'M000001', '2023-11-19'),
+('S000003', 'M000003', '2024-09-03'),
+('S000001', 'M000002', '2024-09-05');
+
+SELECT student.sid, student.sname, student.age FROM student INNER JOIN play on student.sid = play.sid WHERE play.mid = 'M000001;
+
+SELECT  mname FROM matches m INNER JOIN play p ON m.mid = p.mid WHERE p.sid = (SELECT sid FROM student WHERE sname = 'Amit');
