@@ -11,10 +11,10 @@ Q4
 SELECT * FROM employee WHERE (SELECT COUNT(*) from project) = (SELECT COUNT(*) FROM works_on WHERE ssn = essn);
 
 Q5
-SELECT * FROM employee WHERE 0 = (SELECT COUNT(*) FROM works_on WHERE ssn = essn);
+SELECT * FROM employee WHERE ssn NOT IN (SELECT DISTINCT essn FROM works_on);
 
 Q6
 SELECT fname, lname, address FROM employee WHERE ssn IN (SELECT essn FROM works_on WHERE pno IN (SELECT pnumber FROM project WHERE plocation = 'Houston')) AND ssn NOT IN (SELECT ssn FROM employee WHERE dno IN (SELECT dnumber FROM dept_locations WHERE dlocation = 'Houston'));
 
 Q7
-SELECT * FROM  employee WHERE 0 = (SELECT COUNT(*) FROM dependent where ssn = essn);
+SELECT * FROM  employee WHERE ssn IN (SELECT mgr_ssn FROM department) AND ssn NOT IN (SELECT DISTINCT essn FROM dependent);
