@@ -32,9 +32,18 @@ INSERT INTO matches (mid, mname, venue) VALUES
 INSERT INTO play (sid, mid, day) VALUES
 ('S000001', 'M000001', '2023-11-19'),
 ('S000002', 'M000001', '2023-11-19'),
+('S000002', 'M000002', '2023-11-19'),
 ('S000003', 'M000003', '2024-09-03'),
 ('S000001', 'M000002', '2024-09-05');
 
 SELECT student.sid, student.sname, student.age FROM student INNER JOIN play on student.sid = play.sid WHERE play.mid = 'M000001;
 
-SELECT  mname FROM matches m INNER JOIN play p ON m.mid = p.mid WHERE p.sid = (SELECT sid FROM student WHERE sname = 'Amit');
+SELECT mname FROM matches m INNER JOIN play p ON m.mid = p.mid WHERE p.sid = (SELECT sid FROM student WHERE sname = 'Amit');
+
+SELECT s.sname FROM student s INNER JOIN play p on s.sid = p.sid INNER JOIN matches m ON p.mid = m.mid WHERE m.venue = 'Wankhede';
+
+SELECT DISTINCT p.sid, sname FROM play p INNER JOIN student s on p.sid = s.sid WHERE day IN (SELECT day FROM play WHERE p.sid = sid AND p.mid <> mid);
+
+SELECT s.sid FROM student s INNER JOIN play p on s.sid = p.sid INNER JOIN matches m ON p.mid = m.mid WHERE m.venue IN ('Wankhede','Chinnaswamy');
+
+SELECT AVG(age) FROM student;
