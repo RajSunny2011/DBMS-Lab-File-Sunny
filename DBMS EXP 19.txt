@@ -1,0 +1,10 @@
+//1. Write a MongoDB query to display the next 5 hotels after skipping first 5 which are in the Borough Bronx.
+db.Restaurant.find({borough:"Bronx"}).skip(5).limit(5)
+
+//2. Write a MongoDB query to find the hotels that achieved a score, more than 80 but less than 100.
+db.Restaurant.find({"grades.score":{$gte:80,$lte:100}})
+
+//3. Write a MongoDB query to find the hotels which locate in latitude value less than -95.75.
+db.Restaurant.find({"address.coord.0":{$lt:-70.75}})
+
+//4. Write a MongoDB query to find the hotels that do not prepare any cuisine of 'American' and their grade score more than 70 and latitude less than -65.754168.

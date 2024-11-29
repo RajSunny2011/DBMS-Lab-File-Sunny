@@ -1,0 +1,12 @@
+// 1. Write a MongoDB query to arrange the name of the cuisine in ascending order and for that same cuisine Borough should be in descending order.
+db.Restaurant.find().sort({cuisine:1, borough:-1})
+
+// 2. Write a MongoDB query to know whether all the addresses contains the street or not.
+db.Restaurant.find({"address.street":{$exists:true}})
+
+// 4. Write a MongoDB query which will select the hotel Id, name and grades for those hotels which returns 0 as a remainder after dividing the score by 7.
+db.Restaurant.find({"grades.score":{$mod:[7,0]}},{restaurant_id:1, name:1, grades:1})
+
+// 5. Write a MongoDB query to find the hotel name, Borough, longitude and attitude and cuisine for those hotels which contains 'mon' as three letters somewhere in its name.
+db.Restaurant.find({name:{$regex:"mon"}},{name:1,borough:1,"address.coord":1,cusine:1})
+
